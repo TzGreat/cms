@@ -1,0 +1,20 @@
+package com.example.demo.anno;
+
+import com.example.demo.validation.StateValidation;
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
+
+import java.lang.annotation.*;
+
+@Documented//元注解
+@Target(ElementType.FIELD)//元注解
+@Retention(RetentionPolicy.RUNTIME)//元注解
+@Constraint(validatedBy = {StateValidation.class})//提供校验规则的类
+public @interface State {
+    //校验失败信息
+    String message() default "state的值错误";
+    //指定分组
+    Class<?>[] groups() default {};
+    //负载
+    Class<? extends Payload>[] payload() default {};
+}

@@ -36,7 +36,6 @@ public class RedisConfig {
                 .build();
     }
 
-    // 你之前的RedisTemplate配置保留不动
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();

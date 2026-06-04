@@ -4,17 +4,12 @@ import com.example.demo.utils.JwtUtil;
 import com.example.demo.utils.ThreadLocalUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import java.util.Map;
 
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -24,11 +19,6 @@ public class LoginInterceptor implements HandlerInterceptor {
             // 如果token以"Bearer "开头，去掉前缀
             if (token != null && token.startsWith("Bearer ")) {
                 token = token.substring(7);
-            }
-            ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
-            String redisToken = ops.get(token);
-            if(redisToken==null){
-                throw new Exception("token不存在");
             }
 
             Map<String,Object> claims = JwtUtil.parseToken(token);

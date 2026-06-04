@@ -68,7 +68,7 @@ onMounted(() => {
     </div>
 
     <div v-else-if="categories.length === 0" class="empty-state">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
         <circle cx="12" cy="10" r="3"></circle>
       </svg>
@@ -77,13 +77,13 @@ onMounted(() => {
     </div>
 
     <div v-else class="category-grid">
-      <div 
-        v-for="category in categories" 
-        :key="category.id" 
+      <div
+        v-for="category in categories"
+        :key="category.id"
         class="category-card"
       >
         <div class="card-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
             <circle cx="12" cy="10" r="3"></circle>
           </svg>
@@ -92,7 +92,7 @@ onMounted(() => {
         <p class="card-alias">{{ category.categoryAlias }}</p>
         <div class="card-meta">
           <span class="meta-item">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
               <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
@@ -101,13 +101,13 @@ onMounted(() => {
         </div>
         <div class="card-actions">
           <button class="action-btn edit" @click="handleEdit(category.id)">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
             </svg>
             <span>编辑</span>
           </button>
           <button class="action-btn delete" @click="handleDelete(category.id)">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 6h18"></path>
               <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
               <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
@@ -125,16 +125,17 @@ onMounted(() => {
   background: var(--bg-card);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-md);
-  padding: 28px;
+  padding: 32px;
 }
 
+/* ── Header ── */
 .header-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .header-left {
@@ -144,63 +145,72 @@ onMounted(() => {
 }
 
 .section-title {
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 400;
   color: var(--text-primary);
   margin: 0;
+  letter-spacing: -0.01em;
 }
 
 .section-subtitle {
-  font-size: 0.875rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
   color: var(--text-muted);
   margin: 0;
+  letter-spacing: 0.02em;
 }
 
+/* ── Buttons ── */
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
+  padding: 10px 22px;
   border-radius: var(--radius-md);
-  font-size: 0.875rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
   border: none;
+  letter-spacing: 0.01em;
 }
 
 .btn svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  color: white;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  background: var(--accent-color);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
+/* ── Loading ── */
 .loading-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 60px 20px;
-  gap: 12px;
+  padding: 72px 20px;
+  gap: 14px;
 }
 
 .loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid var(--border-color);
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border-light);
   border-top-color: var(--accent-color);
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
@@ -208,110 +218,123 @@ onMounted(() => {
 }
 
 .loading-text {
+  font-family: var(--font-body);
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
 }
 
+/* ── Empty State ── */
 .empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 80px 20px;
-  gap: 12px;
+  padding: 88px 20px;
+  gap: 10px;
 }
 
 .empty-state svg {
-  width: 64px;
-  height: 64px;
-  color: var(--text-muted);
+  width: 56px;
+  height: 56px;
+  color: var(--accent-muted);
+  opacity: 0.6;
 }
 
 .empty-state h3 {
+  font-family: var(--font-display);
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-secondary);
   margin: 0;
 }
 
 .empty-state p {
-  font-size: 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
   color: var(--text-muted);
   margin: 0;
 }
 
+/* ── Grid ── */
 .category-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
 }
 
+/* ── Card ── */
 .category-card {
   background: var(--bg-secondary);
   border-radius: var(--radius-lg);
-  padding: 20px;
+  padding: 24px;
   transition: all 0.3s ease;
   border: 1px solid var(--border-light);
 }
 
 .category-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
   border-color: var(--border-color);
 }
 
 .card-icon {
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, var(--accent-color) 0%, #8b5cf6 100%);
-  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  background: var(--accent-soft);
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 14px;
-  color: white;
+  margin-bottom: 16px;
+  color: var(--accent-color);
 }
 
 .card-icon svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
 }
 
 .card-title {
+  font-family: var(--font-display);
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-primary);
-  margin: 0 0 6px;
+  margin: 0 0 4px;
 }
 
 .card-alias {
-  font-size: 0.875rem;
+  font-family: var(--font-body);
+  font-size: 0.825rem;
   color: var(--text-muted);
-  margin: 0 0 14px;
+  margin: 0 0 16px;
   font-style: italic;
 }
 
 .card-meta {
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .meta-item {
   display: flex;
   align-items: center;
   gap: 6px;
+  font-family: var(--font-body);
   font-size: 0.75rem;
   color: var(--text-muted);
+  letter-spacing: 0.01em;
 }
 
 .meta-item svg {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
 }
 
+/* ── Card Actions ── */
 .card-actions {
   display: flex;
   gap: 10px;
-  padding-top: 14px;
+  padding-top: 16px;
   border-top: 1px solid var(--border-light);
 }
 
@@ -323,11 +346,13 @@ onMounted(() => {
   gap: 6px;
   padding: 8px 12px;
   border-radius: var(--radius-sm);
+  font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   border: none;
+  letter-spacing: 0.02em;
 }
 
 .action-btn svg {
@@ -336,28 +361,31 @@ onMounted(() => {
 }
 
 .action-btn.edit {
-  background: rgba(59, 130, 246, 0.1);
-  color: #3b82f6;
+  background: var(--accent-soft);
+  color: var(--accent-color);
 }
 
 .action-btn.edit:hover {
-  background: rgba(59, 130, 246, 0.2);
+  background: var(--accent-color);
+  color: #fff;
 }
 
 .action-btn.delete {
-  background: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
+  background: var(--error-soft);
+  color: var(--error-color);
 }
 
 .action-btn.delete:hover {
-  background: rgba(239, 68, 68, 0.2);
+  background: var(--error-color);
+  color: #fff;
 }
 
+/* ── Responsive ── */
 @media (max-width: 768px) {
   .category-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .header-section {
     flex-direction: column;
     gap: 16px;

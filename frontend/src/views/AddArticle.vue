@@ -99,42 +99,50 @@ onMounted(() => {
 
 <template>
   <div class="add-article">
-    <h2>添加文章</h2>
+    <div class="page-header">
+      <h2 class="page-title">添加文章</h2>
+      <div class="title-accent"></div>
+    </div>
+
     <div v-if="errorMsg" class="error-msg">{{ errorMsg }}</div>
+
     <div class="form">
       <div class="form-group">
         <label>标题</label>
         <input v-model="title" type="text" placeholder="请输入文章标题（最多10个字符）" />
       </div>
+
       <div class="form-group">
         <label>内容</label>
         <textarea v-model="content" rows="6" placeholder="请输入文章内容"></textarea>
         <!-- OCR识别按钮 -->
         <div class="ocr-section">
-          <input 
+          <input
             ref="ocrFileRef"
-            type="file" 
-            accept="image/*" 
+            type="file"
+            accept="image/*"
             class="ocr-file-input"
             @change="handleOcr"
           />
-          <button 
-            class="ocr-btn" 
+          <button
+            class="ocr-btn"
             :disabled="ocrLoading"
             @click="ocrFileRef?.click()"
           >
-            <span v-if="ocrLoading">识别中...</span>
-            <span v-else>📷 图片识别文字</span>
+            <span v-if="ocrLoading" class="ocr-loading-text">识别中...</span>
+            <span v-else>&#x1F4F7; 图片识别文字</span>
           </button>
           <div v-if="ocrResult" class="ocr-result">
             <strong>识别结果：</strong>{{ ocrResult }}
           </div>
         </div>
       </div>
+
       <div class="form-group">
         <label>封面图片URL</label>
         <input v-model="coverImg" type="text" placeholder="请输入封面图片URL" />
       </div>
+
       <div class="form-group">
         <label>分类</label>
         <select v-model="categoryId">
@@ -144,6 +152,7 @@ onMounted(() => {
           </option>
         </select>
       </div>
+
       <div class="form-group">
         <label>状态</label>
         <select v-model="state">
@@ -151,6 +160,7 @@ onMounted(() => {
           <option value="p">已发布</option>
         </select>
       </div>
+
       <div class="btn-group">
         <button class="submit-btn" @click="handleSubmit">提交</button>
         <button class="cancel-btn" @click="handleCancel">取消</button>
@@ -161,49 +171,137 @@ onMounted(() => {
 
 <style scoped>
 .add-article {
-  max-width: 600px;
+  --bg-primary: #FAF8F5;
+  --bg-secondary: #F2EFEB;
+  --bg-tertiary: #EAE6E1;
+  --bg-card: #FFFFFF;
+  --bg-hover: #F7F5F2;
+  --bg-inset: #F5F2EE;
+  --text-primary: #1A1A1A;
+  --text-secondary: #4A4A4A;
+  --text-muted: #8A8580;
+  --accent-color: #C45D3E;
+  --accent-hover: #A84D33;
+  --accent-soft: rgba(196, 93, 62, 0.08);
+  --accent-muted: rgba(196, 93, 62, 0.5);
+  --success-color: #3A8A5C;
+  --success-soft: rgba(58, 138, 92, 0.08);
+  --warning-color: #C4883E;
+  --warning-soft: rgba(196, 136, 62, 0.08);
+  --error-color: #C43E3E;
+  --error-soft: rgba(196, 62, 62, 0.07);
+  --border-color: #E0DCD7;
+  --border-light: #EDEAE6;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.08);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  max-width: 680px;
   margin: 0 auto;
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 40px 44px;
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-body);
+  color: var(--text-primary);
 }
 
-.add-article h2 {
-  font-size: 20px;
-  margin-bottom: 20px;
+.page-header {
+  margin-bottom: 32px;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin: 0 0 12px 0;
+  letter-spacing: -0.02em;
+}
+
+.title-accent {
+  width: 48px;
+  height: 3px;
+  background: var(--accent-color);
+  border-radius: 2px;
 }
 
 .error-msg {
-  color: #e74c3c;
-  margin-bottom: 15px;
+  background: var(--error-soft);
+  color: var(--error-color);
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  margin-bottom: 24px;
+  border-left: 3px solid var(--error-color);
+  line-height: 1.5;
 }
 
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: 22px;
 }
 
 .form-group label {
   display: block;
   margin-bottom: 8px;
-  color: #555;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  padding: 11px 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
   font-size: 14px;
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-muted);
 }
 
 .form-group textarea {
   resize: vertical;
+  min-height: 140px;
+}
+
+.form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238A8580' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
 }
 
 .ocr-section {
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .ocr-file-input {
@@ -211,52 +309,103 @@ onMounted(() => {
 }
 
 .ocr-btn {
-  padding: 8px 16px;
-  background: #3498db;
-  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  background: var(--accent-color);
+  color: var(--bg-card);
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.ocr-btn:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.ocr-btn:active:not(:disabled) {
+  transform: scale(0.98);
 }
 
 .ocr-btn:disabled {
-  background: #95a5a6;
+  background: var(--accent-muted);
   cursor: not-allowed;
 }
 
+.ocr-loading-text {
+  color: var(--bg-card);
+  opacity: 0.8;
+}
+
 .ocr-result {
-  margin-top: 10px;
-  padding: 12px;
-  background: #f8f9fa;
-  border-radius: 6px;
-  font-size: 14px;
-  color: #333;
+  margin-top: 12px;
+  padding: 14px 16px;
+  background: var(--bg-inset);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--text-secondary);
   max-height: 150px;
   overflow-y: auto;
+  line-height: 1.6;
+}
+
+.ocr-result strong {
+  color: var(--text-primary);
+  font-weight: 600;
 }
 
 .btn-group {
   display: flex;
   gap: 12px;
-  margin-top: 20px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-light);
 }
 
 .submit-btn {
-  padding: 10px 32px;
-  background: #27ae60;
-  color: white;
+  padding: 11px 36px;
+  background: var(--accent-color);
+  color: var(--bg-card);
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
+  font-size: 14px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.submit-btn:hover {
+  background: var(--accent-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
 }
 
 .cancel-btn {
-  padding: 10px 32px;
-  background: #95a5a6;
-  color: white;
-  border: none;
-  border-radius: 6px;
+  padding: 11px 36px;
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
   cursor: pointer;
+  font-size: 14px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--text-muted);
 }
 </style>

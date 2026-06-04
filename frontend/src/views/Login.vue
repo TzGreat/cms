@@ -40,39 +40,44 @@ const goRegister = () => {
 
 <template>
   <div class="login-container">
-    <div class="background-decoration">
-      <div class="circle circle-1"></div>
-      <div class="circle circle-2"></div>
-      <div class="circle circle-3"></div>
-    </div>
-    
-    <div class="login-box animate-fade-in">
-      <div class="logo-section">
-        <div class="logo">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
-            <polyline points="15 2 15 8 21 8"></polyline>
-            <line x1="16" x2="8" y1="13" y2="13"></line>
-            <line x1="16" x2="8" y1="17" y2="17"></line>
-            <polyline points="10 9 9 9 8 9"></polyline>
+    <!-- Subtle geometric background pattern -->
+    <div class="background-pattern"></div>
+
+    <div class="login-card">
+      <!-- Brand / Logo Section -->
+      <div class="brand-section">
+        <div class="brand-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" class="quill-icon">
+            <path d="M36 4C36 4 28 8 22 16C16 24 14 32 12 38C10 44 8 46 8 46" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M36 4C36 4 38 10 36 18C34 26 28 34 24 38C20 42 16 44 14 44" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 46C8 46 10 44 14 44C18 44 20 46 20 46" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="36" cy="4" r="2" fill="currentColor"/>
           </svg>
         </div>
-        <h1 class="brand-title">文章管理系统</h1>
-        <p class="brand-subtitle">欢迎回来，请登录您的账户</p>
+        <h1 class="brand-name">Inkwell</h1>
+        <p class="brand-tagline">欢迎回来，请登录您的账户</p>
       </div>
 
+      <!-- Decorative divider -->
+      <div class="divider">
+        <span class="divider-line"></span>
+        <span class="divider-ornament"></span>
+        <span class="divider-line"></span>
+      </div>
+
+      <!-- Login Form -->
       <form @submit.prevent="handleLogin" class="login-form">
         <div class="form-group">
           <label class="form-label">用户名</label>
           <div class="input-wrapper">
-            <svg xmlns="http://www.w3.org/2000/svg" class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
-            <input 
-              v-model="username" 
-              type="text" 
-              placeholder="请输入用户名" 
+            <input
+              v-model="username"
+              type="text"
+              placeholder="请输入用户名"
               class="form-input"
               :class="{ 'is-error': errorMsg }"
             />
@@ -82,14 +87,14 @@ const goRegister = () => {
         <div class="form-group">
           <label class="form-label">密码</label>
           <div class="input-wrapper">
-            <svg xmlns="http://www.w3.org/2000/svg" class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
               <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
             </svg>
-            <input 
-              v-model="password" 
-              type="password" 
-              placeholder="请输入密码" 
+            <input
+              v-model="password"
+              type="password"
+              placeholder="请输入密码"
               class="form-input"
               :class="{ 'is-error': errorMsg }"
             />
@@ -107,12 +112,13 @@ const goRegister = () => {
 
         <button type="submit" class="login-btn" :disabled="loading">
           <svg v-if="loading" class="spinner" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-            <circle class="spinner-ring" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-dasharray="100" animation="spin 1s linear infinite"></circle>
+            <circle class="spinner-ring" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-dasharray="100"></circle>
           </svg>
           <span>{{ loading ? '登录中...' : '登录' }}</span>
         </button>
       </form>
 
+      <!-- Register Link -->
       <div class="register-section">
         <span>还没有账号？</span>
         <button type="button" class="register-btn" @click="goRegister">立即注册</button>
@@ -122,124 +128,139 @@ const goRegister = () => {
 </template>
 
 <style scoped>
+/* ========================================
+   Editorial Elegance — Login Page
+   Warm, magazine-inspired design system
+   ======================================== */
+
 .login-container {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-color: var(--bg-primary, #FAF7F2);
   position: relative;
   overflow: hidden;
-  padding: 20px;
+  padding: 24px;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
 }
 
-.background-decoration {
+/* --- Geometric background pattern (diagonal lines) --- */
+.background-pattern {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   pointer-events: none;
+  opacity: 0.035;
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--text-primary, #2C2825) 0px,
+    var(--text-primary, #2C2825) 1px,
+    transparent 1px,
+    transparent 28px
+  );
+  z-index: 0;
 }
 
-.circle {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.3;
-}
-
-.circle-1 {
-  width: 400px;
-  height: 400px;
-  background: rgba(255, 255, 255, 0.3);
-  top: -100px;
-  right: -100px;
-  animation: float 6s ease-in-out infinite;
-}
-
-.circle-2 {
-  width: 300px;
-  height: 300px;
-  background: rgba(255, 255, 255, 0.2);
-  bottom: -50px;
-  left: -50px;
-  animation: float 8s ease-in-out infinite reverse;
-}
-
-.circle-3 {
-  width: 200px;
-  height: 200px;
-  background: rgba(255, 255, 255, 0.25);
-  top: 50%;
-  left: 10%;
-  animation: float 5s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-20px) rotate(5deg);
-  }
-}
-
-.login-box {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  padding: 48px;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+/* --- Login card --- */
+.login-card {
+  background: var(--bg-card, #FFFFFF);
+  border: 1px solid var(--border-light, #E8E2D9);
+  border-radius: var(--radius-xl, 20px);
+  box-shadow: var(--shadow-lg, 0 20px 60px rgba(44, 40, 37, 0.08));
+  padding: 52px 44px 44px;
   width: 100%;
   max-width: 420px;
   position: relative;
   z-index: 10;
+  animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.logo-section {
+/* --- Brand / Logo --- */
+.brand-section {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
-.logo {
-  width: 64px;
-  height: 64px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 16px;
-  display: flex;
+.brand-logo {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 16px;
-  color: white;
-  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-lg, 14px);
+  background: var(--accent-soft, #FDF0EC);
+  color: var(--accent-color, #C45D3E);
+  margin-bottom: 16px;
+  transition: transform 0.3s ease;
 }
 
-.brand-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 8px;
+.brand-logo:hover {
+  transform: scale(1.05);
 }
 
-.brand-subtitle {
+.quill-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.brand-name {
+  font-family: var(--font-display, 'DM Serif Display', serif);
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--text-primary, #2C2825);
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.brand-tagline {
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--text-muted, #9C9589);
+  margin: 0;
+  letter-spacing: 0.01em;
 }
 
+/* --- Decorative divider --- */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border-light, #E8E2D9);
+}
+
+.divider-ornament {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-muted, #D4A594);
+  flex-shrink: 0;
+}
+
+/* --- Form --- */
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
 }
 
 .form-label {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 600;
-  color: #334155;
+  color: var(--text-secondary, #5C5650);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .input-wrapper {
@@ -248,48 +269,73 @@ const goRegister = () => {
 
 .input-icon {
   position: absolute;
-  left: 14px;
+  left: 16px;
   top: 50%;
   transform: translateY(-50%);
   width: 18px;
   height: 18px;
-  color: #94a3b8;
+  color: var(--text-muted, #9C9589);
+  transition: color 0.25s ease;
+  pointer-events: none;
 }
 
 .form-input {
   width: 100%;
-  padding: 14px 14px 14px 48px;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 0.9rem;
+  padding: 13px 16px 13px 48px;
+  border: 1.5px solid var(--border-color, #DDD6CC);
+  border-radius: var(--radius-md, 10px);
+  font-size: 0.9375rem;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  color: var(--text-primary, #2C2825);
+  background: var(--bg-secondary, #FDFBF8);
   transition: all 0.25s ease;
-  background: #f8fafc;
-}
-
-.form-input:focus {
-  border-color: #667eea;
-  background: white;
-  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-}
-
-.form-input.is-error {
-  border-color: #ef4444;
+  outline: none;
+  box-sizing: border-box;
 }
 
 .form-input::placeholder {
-  color: #94a3b8;
+  color: var(--text-muted, #9C9589);
 }
 
+.form-input:hover {
+  border-color: var(--accent-muted, #D4A594);
+}
+
+.form-input:focus {
+  border-color: var(--accent-color, #C45D3E);
+  background: var(--bg-card, #FFFFFF);
+  box-shadow: 0 0 0 3px var(--accent-soft, #FDF0EC);
+}
+
+.form-input:focus ~ .input-icon,
+.form-input:focus + .input-icon {
+  color: var(--accent-color, #C45D3E);
+}
+
+.input-wrapper:focus-within .input-icon {
+  color: var(--accent-color, #C45D3E);
+}
+
+.form-input.is-error {
+  border-color: var(--error-color, #C53030);
+}
+
+.form-input.is-error:focus {
+  box-shadow: 0 0 0 3px var(--error-soft, #FFF5F5);
+}
+
+/* --- Error message --- */
 .error-message {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 14px;
-  background: #fef2f2;
-  border-radius: 10px;
-  color: #dc2626;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--error-soft, #FFF5F5);
+  border: 1px solid #FED7D7;
+  border-radius: var(--radius-sm, 8px);
+  color: var(--error-color, #C53030);
   font-size: 0.875rem;
-  animation: fadeIn 0.2s ease;
+  animation: fadeIn 0.25s ease;
 }
 
 .error-icon {
@@ -298,27 +344,45 @@ const goRegister = () => {
   flex-shrink: 0;
 }
 
+/* --- Login button --- */
 .login-btn {
-  padding: 14px 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border-radius: 12px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
   justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 24px;
+  margin-top: 4px;
+  background: var(--accent-color, #C45D3E);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-md, 10px);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow-sm, 0 2px 8px rgba(196, 93, 62, 0.2));
+  letter-spacing: 0.01em;
 }
 
 .login-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+  background: var(--accent-hover, #B04E32);
+  box-shadow: var(--shadow-md, 0 4px 16px rgba(196, 93, 62, 0.3));
+  transform: translateY(-1px);
 }
 
 .login-btn:active:not(:disabled) {
   transform: translateY(0);
+  box-shadow: var(--shadow-sm, 0 2px 8px rgba(196, 93, 62, 0.2));
 }
 
+.login-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* --- Spinner --- */
 .spinner {
   width: 18px;
   height: 18px;
@@ -329,34 +393,67 @@ const goRegister = () => {
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
+/* --- Register section --- */
 .register-section {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin-top: 24px;
+  gap: 6px;
+  margin-top: 28px;
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--text-muted, #9C9589);
 }
 
 .register-btn {
   padding: 0;
   background: none;
-  color: #667eea;
+  border: none;
+  color: var(--accent-color, #C45D3E);
   font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.875rem;
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 1.5px solid transparent;
+  transition: all 0.2s ease;
+  padding-bottom: 1px;
 }
 
 .register-btn:hover {
-  color: #764ba2;
+  color: var(--accent-hover, #B04E32);
+  border-bottom-color: var(--accent-hover, #B04E32);
+}
+
+/* --- Animations --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 40px 28px 36px;
+    border-radius: var(--radius-lg, 14px);
+  }
+
+  .brand-name {
+    font-size: 1.75rem;
+  }
 }
 </style>

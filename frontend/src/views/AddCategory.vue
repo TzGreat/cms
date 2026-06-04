@@ -45,7 +45,7 @@ const handleCancel = () => {
     <div class="form-card">
       <div class="card-header">
         <div class="header-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
             <circle cx="12" cy="10" r="3"></circle>
           </svg>
@@ -56,7 +56,7 @@ const handleCancel = () => {
 
       <form @submit.prevent="handleSubmit" class="category-form">
         <div v-if="errorMsg" class="error-message">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
             <line x1="12" x2="12" y1="8" y2="12"></line>
             <line x1="12" x2="12.01" y1="16" y2="16"></line>
@@ -65,45 +65,27 @@ const handleCancel = () => {
         </div>
 
         <div class="form-group">
-          <label class="form-label">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-            </svg>
-            分类名称
-          </label>
-          <input 
-            v-model="categoryName" 
-            type="text" 
-            placeholder="请输入分类名称" 
+          <label class="form-label">分类名称</label>
+          <input
+            v-model="categoryName"
+            type="text"
+            placeholder="请输入分类名称"
             class="form-input"
           />
         </div>
 
         <div class="form-group">
-          <label class="form-label">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-            </svg>
-            分类别名
-          </label>
-          <input 
-            v-model="categoryAlias" 
-            type="text" 
-            placeholder="请输入分类别名（英文）" 
+          <label class="form-label">分类别名</label>
+          <input
+            v-model="categoryAlias"
+            type="text"
+            placeholder="请输入分类别名（英文）"
             class="form-input"
           />
         </div>
 
         <div class="btn-group">
           <button type="button" class="btn btn-secondary" @click="handleCancel">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="9" x2="15" y1="9" y2="15"></line>
-              <line x1="15" x2="9" y1="9" y2="15"></line>
-            </svg>
             取消
           </button>
           <button type="submit" class="btn btn-primary" :disabled="loading">
@@ -124,57 +106,65 @@ const handleCancel = () => {
   justify-content: center;
   align-items: center;
   min-height: 60vh;
-  padding: 20px;
+  padding: 24px;
 }
 
 .form-card {
   background: var(--bg-card);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
-  padding: 32px;
+  padding: 36px 32px;
   width: 100%;
-  max-width: 450px;
+  max-width: 440px;
+  border: 1px solid var(--border-light);
 }
 
+/* ── Header ── */
 .card-header {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 }
 
 .header-icon {
-  width: 64px;
-  height: 64px;
-  background: linear-gradient(135deg, var(--accent-color) 0%, #8b5cf6 100%);
-  border-radius: 16px;
+  width: 56px;
+  height: 56px;
+  background: var(--accent-color);
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 16px;
-  color: white;
+  margin: 0 auto 18px;
+  color: #fff;
+  box-shadow: var(--shadow-sm);
 }
 
 .header-icon svg {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
 }
 
 .card-header h2 {
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
   color: var(--text-primary);
-  margin: 0 0 8px;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
 }
 
 .card-header p {
-  font-size: 0.875rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
   color: var(--text-muted);
   margin: 0;
+  letter-spacing: 0.02em;
 }
 
+/* ── Form ── */
 .category-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
 }
 
 .error-message {
@@ -182,15 +172,17 @@ const handleCancel = () => {
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: #fef2f2;
+  background: var(--error-soft);
   border-radius: var(--radius-md);
-  color: #dc2626;
-  font-size: 0.875rem;
+  color: var(--error-color);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
 }
 
 .error-message svg {
   width: 16px;
   height: 16px;
+  flex-shrink: 0;
 }
 
 .form-group {
@@ -200,34 +192,36 @@ const handleCancel = () => {
 }
 
 .form-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.875rem;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
   font-weight: 600;
   color: var(--text-secondary);
-}
-
-.form-label svg {
-  width: 16px;
-  height: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .form-input {
-  padding: 14px 16px;
-  border: 2px solid var(--border-color);
+  padding: 12px 16px;
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
+  font-family: var(--font-body);
   font-size: 0.9rem;
+  color: var(--text-primary);
   transition: all 0.2s ease;
   background: var(--bg-secondary);
+}
+
+.form-input::placeholder {
+  color: var(--text-muted);
 }
 
 .form-input:focus {
   outline: none;
   border-color: var(--accent-color);
-  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
+/* ── Buttons ── */
 .btn-group {
   display: flex;
   gap: 12px;
@@ -242,11 +236,13 @@ const handleCancel = () => {
   gap: 8px;
   padding: 12px 20px;
   border-radius: var(--radius-md);
-  font-size: 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
   border: none;
+  letter-spacing: 0.01em;
 }
 
 .btn svg {
@@ -255,24 +251,31 @@ const handleCancel = () => {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent-color) 0%, #8b5cf6 100%);
-  color: white;
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+  background: var(--accent-color);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 
 .btn-secondary {
-  background: var(--bg-secondary);
+  background: transparent;
   color: var(--text-secondary);
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
 }
 
 .btn-secondary:hover {
-  background: var(--border-light);
+  background: var(--bg-hover);
+  border-color: var(--border-color);
 }
 
 .spinner {

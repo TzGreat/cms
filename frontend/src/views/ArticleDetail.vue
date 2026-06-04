@@ -40,7 +40,7 @@ const fetchCategory = async (categoryId: number) => {
 
 const handleRefreshSummary = async () => {
   if (!article.value || isRefreshing.value) return
-  
+
   isRefreshing.value = true
   try {
     const result = await aiApi.refreshSummary(article.value.id)
@@ -94,9 +94,9 @@ onMounted(() => {
       <div class="summary-section">
         <div class="summary-header">
           <h3>📝 文章摘要</h3>
-          <button 
-            class="refresh-btn" 
-            @click="handleRefreshSummary" 
+          <button
+            class="refresh-btn"
+            @click="handleRefreshSummary"
             :disabled="isRefreshing"
           >
             {{ isRefreshing ? '生成中...' : (article.summary ? '🔄 刷新摘要' : '✨ 生成摘要') }}
@@ -127,173 +127,202 @@ onMounted(() => {
 .article-detail {
   max-width: 800px;
   margin: 0 auto;
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-md);
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .back-btn {
-  padding: 8px 16px;
-  background: #f8f9fa;
-  color: #333;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  padding: 8px 18px;
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background 0.3s;
+  font-family: var(--font-body);
+  font-size: 14px;
+  transition: all 0.25s ease;
 }
 
 .back-btn:hover {
-  background: #e9ecef;
+  background: var(--bg-hover);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
 }
 
 .edit-btn {
-  padding: 8px 20px;
-  background: #3498db;
-  color: white;
+  padding: 8px 22px;
+  background: var(--accent-color);
+  color: var(--bg-card);
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background 0.3s;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.25s ease;
 }
 
 .edit-btn:hover {
-  background: #2980b9;
+  background: var(--accent-hover);
 }
 
 .title {
-  font-size: 28px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 16px;
-  line-height: 1.4;
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin: 0 0 18px 0;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
 }
 
 .meta {
   display: flex;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 24px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .category {
-  padding: 4px 12px;
-  background: #3498db;
-  color: white;
-  border-radius: 20px;
-  font-size: 14px;
+  padding: 4px 14px;
+  background: var(--accent-soft);
+  color: var(--accent-color);
+  border-radius: var(--radius-xl);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-body);
 }
 
 .state {
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 14px;
+  padding: 4px 14px;
+  border-radius: var(--radius-xl);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-body);
 }
 
 .state.d {
-  background: #f1c40f;
-  color: #fff;
+  background: var(--warning-soft);
+  color: var(--warning-color);
 }
 
 .state.p {
-  background: #27ae60;
-  color: #fff;
+  background: var(--success-soft);
+  color: var(--success-color);
 }
 
 .time {
-  color: #999;
-  font-size: 14px;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-family: var(--font-body);
+  margin-left: auto;
 }
 
 .cover {
-  margin-bottom: 24px;
-  border-radius: 8px;
+  margin-bottom: 28px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
 }
 
 .cover img {
   width: 100%;
   height: auto;
-  max-height: 400px;
+  max-height: 420px;
   object-fit: cover;
+  display: block;
 }
 
 .summary-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 24px;
-  color: white;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  margin-bottom: 28px;
 }
 
 .summary-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .summary-header h3 {
   margin: 0;
+  font-family: var(--font-display);
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
+  color: var(--text-primary);
 }
 
 .refresh-btn {
-  padding: 6px 14px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 6px;
+  padding: 6px 16px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  font-size: 14px;
-  transition: all 0.3s;
+  font-family: var(--font-body);
+  font-size: 13px;
+  transition: all 0.25s ease;
 }
 
 .refresh-btn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--bg-hover);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
 }
 
 .refresh-btn:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .summary-content {
+  font-family: var(--font-body);
   font-size: 15px;
-  line-height: 1.7;
-  opacity: 0.95;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 12px 16px;
-  border-radius: 8px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  background: var(--bg-inset);
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
 }
 
 .summary-empty {
+  font-family: var(--font-body);
   font-size: 14px;
-  opacity: 0.7;
+  color: var(--text-muted);
   text-align: center;
-  padding: 16px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
+  padding: 18px;
+  background: var(--bg-inset);
+  border-radius: var(--radius-sm);
 }
 
 .article-content {
+  font-family: var(--font-body);
   font-size: 16px;
-  line-height: 1.8;
-  color: #444;
+  line-height: 1.85;
+  color: var(--text-secondary);
   white-space: pre-wrap;
   word-break: break-word;
 }
 
 .loading {
   text-align: center;
-  padding: 60px;
-  color: #999;
+  padding: 80px 20px;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 15px;
 }
 </style>

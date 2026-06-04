@@ -70,33 +70,41 @@ const handleReset = () => {
 
 <template>
   <div class="crawl-container">
-    <div class="header">
-      <h2>内容采集</h2>
-      <button class="back-btn" @click="router.push('/home/articles')">← 返回列表</button>
-    </div>
+    <header class="header">
+      <h2 class="page-title">内容采集</h2>
+      <button class="back-btn" @click="router.push('/home/articles')">
+        <span class="back-icon">&larr;</span>
+        <span>返回列表</span>
+      </button>
+    </header>
 
-    <div class="input-section">
+    <section class="input-section">
       <div class="input-group">
         <input
-            v-model="url"
-            type="text"
-            placeholder="请输入文章URL（支持CSDN、掘金、知乎等）"
-            :disabled="loading"
+          v-model="url"
+          type="text"
+          class="url-input"
+          placeholder="请输入文章URL（支持CSDN、掘金、知乎等）"
+          :disabled="loading"
         />
         <button class="fetch-btn" @click="handleFetch" :disabled="loading">
-          {{ loading ? '抓取中...' : '开始抓取' }}
+          <span v-if="loading" class="btn-loading">抓取中...</span>
+          <span v-else>开始抓取</span>
         </button>
       </div>
 
-      <div v-if="errorMsg" class="error-msg">{{ errorMsg }}</div>
-    </div>
+      <div v-if="errorMsg" class="error-msg">
+        <span class="error-icon">!</span>
+        <span>{{ errorMsg }}</span>
+      </div>
+    </section>
 
-    <div v-if="crawlResult" class="result-section">
+    <section v-if="crawlResult" class="result-section">
       <div class="result-header">
-        <h3>抓取结果预览</h3>
+        <h3 class="result-title">抓取结果预览</h3>
         <div class="source-info">
-          来源：{{ crawlResult.sourceType }}
-          <a :href="crawlResult.sourceUrl" target="_blank" class="source-link">查看原文</a>
+          <span class="source-badge">{{ crawlResult.sourceType }}</span>
+          <a :href="crawlResult.sourceUrl" target="_blank" class="source-link">查看原文 &rarr;</a>
         </div>
       </div>
 
@@ -112,61 +120,123 @@ const handleReset = () => {
         </div>
 
         <div class="preview-footer">
-          <span>内容长度：{{ crawlResult.content.length }} 字</span>
+          <span class="content-length">内容长度：{{ crawlResult.content.length }} 字</span>
         </div>
       </div>
 
       <div class="action-buttons">
         <button class="reset-btn" @click="handleReset">重新抓取</button>
         <button class="save-btn" @click="handleSave" :disabled="loading">
-          {{ loading ? '保存中...' : '保存为草稿' }}
+          <span v-if="loading">保存中...</span>
+          <span v-else>保存为草稿</span>
         </button>
       </div>
-    </div>
+    </section>
 
-    <div class="tips">
-      <h4>支持的站点：</h4>
-      <ul>
+    <section class="tips">
+      <h4 class="tips-title">支持的站点</h4>
+      <ul class="tips-list">
         <li>CSDN 博客：https://blog.csdn.net/xxx/article/details/xxx</li>
         <li>掘金：https://juejin.cn/post/xxx</li>
         <li>知乎专栏：https://zhuanlan.zhihu.com/p/xxx</li>
         <li>SegmentFault：https://segmentfault.com/a/xxx</li>
         <li>其他支持标准HTML结构的文章页面</li>
       </ul>
-    </div>
+    </section>
   </div>
 </template>
 
 <style scoped>
 .crawl-container {
+  --bg-primary: #FEFCF9;
+  --bg-secondary: #F7F3EE;
+  --bg-tertiary: #EDE8E1;
+  --bg-card: #FFFFFF;
+  --bg-hover: #F9F5F0;
+  --bg-inset: #FAF8F5;
+  --text-primary: #2C2420;
+  --text-secondary: #6B5E54;
+  --text-muted: #A89B91;
+  --accent-color: #C45D3E;
+  --accent-hover: #B04E32;
+  --accent-soft: #FDF0EC;
+  --accent-muted: #E8A898;
+  --success-color: #3A8A5C;
+  --success-soft: #EEFAF3;
+  --warning-color: #C49A3E;
+  --warning-soft: #FDF8EC;
+  --error-color: #C43E3E;
+  --error-soft: #FDECEC;
+  --border-color: #E5DDD5;
+  --border-light: #F0EBE5;
+  --shadow-sm: 0 1px 3px rgba(44, 36, 32, 0.06);
+  --shadow-md: 0 4px 12px rgba(44, 36, 32, 0.08);
+  --shadow-lg: 0 8px 30px rgba(44, 36, 32, 0.1);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --font-display: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
   max-width: 800px;
   margin: 0 auto;
-  padding: 24px;
-  background: white;
-  border-radius: 12px;
+  padding: 36px 40px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-body);
+  color: var(--text-primary);
 }
 
+/* ── Header ── */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-light);
 }
 
-.header h2 {
-  font-size: 20px;
+.page-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
 }
 
 .back-btn {
-  padding: 8px 16px;
-  background: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
   cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
 }
 
+.back-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+.back-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+
+/* ── Input Section ── */
 .input-section {
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .input-group {
@@ -174,146 +244,275 @@ const handleReset = () => {
   gap: 12px;
 }
 
-.input-group input {
+.url-input {
   flex: 1;
-  padding: 12px 16px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  padding: 12px 18px;
+  background: var(--bg-inset);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
   font-size: 14px;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+  outline: none;
 }
 
-.fetch-btn {
-  padding: 12px 24px;
-  background: #3498db;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
+.url-input::placeholder {
+  color: var(--text-muted);
 }
 
-.fetch-btn:disabled {
-  opacity: 0.7;
+.url-input:focus {
+  border-color: var(--accent-muted);
+  background: var(--bg-card);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.url-input:disabled {
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
-.error-msg {
-  color: #e74c3c;
-  margin-top: 12px;
+.fetch-btn {
+  padding: 12px 28px;
+  background: var(--accent-color);
+  color: var(--bg-card);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
+.fetch-btn:hover:not(:disabled) {
+  background: var(--accent-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.fetch-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.fetch-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ── Error Message ── */
+.error-msg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: var(--error-soft);
+  border: 1px solid var(--error-color);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--error-color);
+}
+
+.error-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: var(--error-color);
+  color: var(--bg-card);
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ── Result Section ── */
 .result-section {
-  margin-top: 32px;
+  margin-top: 36px;
 }
 
 .result-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
+}
+
+.result-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text-primary);
 }
 
 .source-info {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 14px;
-  color: #666;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.source-badge {
+  padding: 4px 10px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--text-secondary);
 }
 
 .source-link {
-  color: #3498db;
+  color: var(--accent-color);
   text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
 
+.source-link:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+/* ── Preview Card ── */
 .preview-card {
-  border: 1px solid #eee;
-  border-radius: 8px;
-  padding: 20px;
-  background: #fafafa;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  background: var(--bg-inset);
+  box-shadow: var(--shadow-sm);
 }
 
 .preview-title {
-  font-size: 20px;
-  margin-bottom: 16px;
-  color: #333;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 18px;
+  color: var(--text-primary);
+  line-height: 1.35;
 }
 
 .preview-cover {
-  margin-bottom: 16px;
-  border-radius: 6px;
+  margin-bottom: 18px;
+  border-radius: var(--radius-sm);
   overflow: hidden;
+  border: 1px solid var(--border-light);
 }
 
 .preview-cover img {
   width: 100%;
   max-height: 300px;
   object-fit: cover;
+  display: block;
 }
 
 .preview-content {
   font-size: 14px;
-  line-height: 1.8;
-  color: #555;
+  line-height: 1.85;
+  color: var(--text-secondary);
   white-space: pre-wrap;
 }
 
 .preview-footer {
-  margin-top: 16px;
+  margin-top: 18px;
   padding-top: 16px;
-  border-top: 1px solid #eee;
-  font-size: 12px;
-  color: #999;
+  border-top: 1px solid var(--border-light);
 }
 
+.content-length {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* ── Action Buttons ── */
 .action-buttons {
   display: flex;
   gap: 12px;
-  margin-top: 20px;
+  margin-top: 22px;
 }
 
 .reset-btn {
-  padding: 10px 24px;
-  background: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  padding: 10px 26px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
   cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.reset-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--text-muted);
+  color: var(--text-primary);
 }
 
 .save-btn {
   padding: 10px 32px;
-  background: #27ae60;
-  color: white;
+  background: var(--success-color);
+  color: var(--bg-card);
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.save-btn:hover:not(:disabled) {
+  opacity: 0.9;
+  box-shadow: var(--shadow-sm);
+}
+
+.save-btn:active:not(:disabled) {
+  transform: translateY(1px);
 }
 
 .save-btn:disabled {
-  opacity: 0.7;
+  opacity: 0.65;
   cursor: not-allowed;
 }
 
+/* ── Tips Section ── */
 .tips {
-  margin-top: 32px;
-  padding: 20px;
-  background: #f8f9fa;
-  border-radius: 8px;
+  margin-top: 36px;
+  padding: 24px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
 }
 
-.tips h4 {
-  margin-bottom: 12px;
-  color: #666;
+.tips-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 14px;
+  color: var(--text-secondary);
 }
 
-.tips ul {
+.tips-list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.tips li {
-  padding: 6px 0;
+.tips-list li {
+  padding: 7px 0;
   font-size: 13px;
-  color: #888;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-light);
+  line-height: 1.6;
+}
+
+.tips-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 </style>

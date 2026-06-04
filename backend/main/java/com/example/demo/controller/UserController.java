@@ -9,15 +9,12 @@ import com.example.demo.utils.ThreadLocalUtil;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/user")
@@ -26,8 +23,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
 
     @RequestMapping("/register")
     public Result register(@Pattern(regexp = "^\\w{5,16}$")
@@ -60,9 +55,6 @@ public class UserController {
             claims.put("id",loginUser.getId());
             claims.put("username",loginUser.getUsername());
             String token= JwtUtil.genToken(claims);
-            //将token存储到redis中（用token本身作为key）
-            ValueOperations<String,String> ops=stringRedisTemplate.opsForValue();
-            ops.set(token,"login",1,TimeUnit.HOURS);
             return Result.success(token);
         }
         return Result.error("密码错误");
@@ -91,7 +83,7 @@ public class UserController {
     }
 
     @PatchMapping("/updatePwd")
-    public Result updatePwd(@RequestBody Map<String,String> params ,@RequestHeader("Authorization") String token){
+    public Result updatePwd(@RequestBody Map<String,String> params){
         String oldPwd=params.get("old_pwd");
         String newPwd=params.get("new_pwd");
         String rePwd=params.get("re_pwd");
@@ -113,9 +105,6 @@ public class UserController {
             return Result.error("两次密码填写不一致");
         }
         userService.updatePwd(newPwd);
-        //删除redis中的token
-        ValueOperations<String,String> ops=stringRedisTemplate.opsForValue();
-        ops.getOperations().delete(token);
         return Result.success();
     }
 }

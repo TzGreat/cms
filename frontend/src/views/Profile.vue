@@ -94,7 +94,7 @@ onMounted(() => {
         <div class="avatar-wrapper">
           <img v-if="user?.userPic" :src="user.userPic" alt="头像" class="avatar" />
           <div v-else class="avatar-placeholder">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
@@ -268,19 +268,25 @@ onMounted(() => {
 .profile {
   max-width: 700px;
   margin: 0 auto;
+  padding: 40px 0;
 }
 
+/* ── Profile Header ── */
 .profile-header {
   text-align: center;
-  padding: 32px;
-  margin-bottom: 24px;
+  padding: 48px 32px 40px;
+  margin-bottom: 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
 }
 
 .avatar-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .avatar-wrapper {
@@ -288,68 +294,80 @@ onMounted(() => {
 }
 
 .avatar {
-  width: 120px;
-  height: 120px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid var(--accent-color);
-  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+  border: 3px solid var(--accent-color);
+  box-shadow: 0 0 0 4px var(--accent-soft), var(--shadow-md);
+  transition: box-shadow 0.3s ease;
 }
 
 .avatar-placeholder {
-  width: 120px;
-  height: 120px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent-color) 0%, #8b5cf6 100%);
+  background: var(--accent-muted);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  border: 4px solid var(--accent-color);
-  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+  color: var(--accent-color);
+  border: 3px solid var(--accent-color);
+  box-shadow: 0 0 0 4px var(--accent-soft), var(--shadow-md);
 }
 
 .avatar-placeholder svg {
-  width: 50px;
-  height: 50px;
+  width: 44px;
+  height: 44px;
 }
 
 .username {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 400;
   color: var(--text-primary);
   margin: 0;
+  letter-spacing: -0.01em;
 }
 
 .user-role {
-  font-size: 0.875rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
   color: var(--text-muted);
   margin: 0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
+/* ── Profile Content ── */
 .profile-content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
+/* ── Section Card ── */
 .section {
   background: var(--bg-card);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-md);
-  padding: 24px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 28px;
 }
 
 .section-header {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .section-title {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 400;
   color: var(--text-primary);
   margin: 0;
 }
@@ -358,16 +376,20 @@ onMounted(() => {
   width: 20px;
   height: 20px;
   color: var(--accent-color);
+  flex-shrink: 0;
 }
 
+/* ── Alert Messages ── */
 .alert {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 14px 16px;
   border-radius: var(--radius-md);
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  font-family: var(--font-body);
   font-size: 0.875rem;
+  line-height: 1.5;
 }
 
 .alert svg {
@@ -377,25 +399,30 @@ onMounted(() => {
 }
 
 .alert-success {
-  background: rgba(34, 197, 94, 0.1);
-  color: #22c55e;
+  background: var(--success-soft);
+  color: var(--success-color);
+  border: 1px solid var(--success-color);
+  border-opacity: 0.15;
 }
 
 .alert-error {
-  background: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
+  background: var(--error-soft);
+  color: var(--error-color);
+  border: 1px solid var(--error-color);
+  border-opacity: 0.15;
 }
 
+/* ── Form ── */
 .form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
 .form-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
 }
 
 .form-group {
@@ -405,30 +432,43 @@ onMounted(() => {
 }
 
 .form-label {
-  font-size: 0.875rem;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .form-input {
-  padding: 12px 14px;
-  border: 2px solid var(--border-color);
+  font-family: var(--font-body);
+  padding: 11px 14px;
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   font-size: 0.875rem;
-  transition: all 0.2s ease;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: var(--text-muted);
 }
 
 .form-input:focus {
   border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .form-input:disabled {
   background: var(--bg-secondary);
   color: var(--text-muted);
   cursor: not-allowed;
+  border-color: var(--border-light);
 }
 
+/* ── Input Wrapper (with icon) ── */
 .input-wrapper {
   position: relative;
 }
@@ -441,86 +481,111 @@ onMounted(() => {
   width: 18px;
   height: 18px;
   color: var(--text-muted);
+  pointer-events: none;
 }
 
 .input-wrapper .form-input {
-  padding-left: 48px;
+  padding-left: 44px;
 }
 
+/* ── Form Hint ── */
 .form-hint {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
   color: var(--text-muted);
-  padding: 10px 14px;
+  padding: 12px 14px;
   background: var(--bg-secondary);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
 }
 
 .form-hint svg {
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--text-muted);
 }
 
+/* ── Button Group ── */
 .btn-group {
   display: flex;
   gap: 12px;
   margin-top: 8px;
 }
 
+/* ── Buttons ── */
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 12px 24px;
+  padding: 11px 24px;
   border-radius: var(--radius-md);
+  font-family: var(--font-body);
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   border: none;
+  outline: none;
+  line-height: 1;
 }
 
 .btn svg {
-  width: 18px;
-  height: 18px;
+  width: 17px;
+  height: 17px;
 }
 
 .btn-full-width {
   width: 100%;
-  justify-content: center;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  color: white;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  background: var(--accent-color);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+  background: var(--accent-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-success {
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-  color: white;
-  box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+  background: var(--success-color);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-success:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+  filter: brightness(1.08);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-success:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-secondary {
-  background: var(--bg-secondary);
+  background: transparent;
   color: var(--text-secondary);
   border: 1px solid var(--border-color);
 }
 
 .btn-secondary:hover {
   background: var(--bg-hover);
+  border-color: var(--text-muted);
+  color: var(--text-primary);
 }
 </style>

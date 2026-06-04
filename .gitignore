@@ -1,4 +1,9 @@
-HELP.md
+# 敏感配置文件
+backend/main/resources/application.properties
+.env
+
+项目经验-后端开发.docx
+# 编译输出
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/

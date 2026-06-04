@@ -2,6 +2,10 @@
 backend/main/resources/application.properties
 .env
 
+# 测试文件
+backend/test/
+**/Demo.java
+
 项目经验-后端开发.docx
 # 编译输出
 target/

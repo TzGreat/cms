@@ -2,6 +2,10 @@
 backend/main/resources/application.properties
 .env
 
+# 包含密钥的文件
+backend/main/java/com/example/demo/utils/AliOssUtil.java
+backend/test/java/com/example/demo/Demo.java
+
 # 测试文件
 backend/test/
 **/Demo.java
